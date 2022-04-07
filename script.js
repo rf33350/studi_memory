@@ -1,13 +1,27 @@
 var counterVal = 0;
+var counterValWins = 0;
 const items = [];
+
+var audioPiece = new Audio('./sounds/piece.wav');
+var audioWin = new Audio('./sounds/niveau-termine.wav');
+
+const celebration = document.querySelector('.celebration');
 
 const btstart = document.querySelector('.start');
 btstart.addEventListener('click', () => {
     window.scrollTo({
-        top: 800,
+        top: 920,
         left: 0,
         behavior: "smooth"
     })
+    counterVal = 0;
+    counterValWins = 0;
+    img1.src="./images/cache.png";
+    img2.src="./images/cache.png";
+    img3.src="./images/cache.png";
+    img4.src="./images/cache.png";
+    celebration.classList.remove("celebration-on");
+    celebration.classList.add("celebration-off");
 });
 
 const img1 = document.querySelector('.img1');
@@ -15,6 +29,8 @@ img1.addEventListener('click', () => {
    img1.src="./images/luigi.jpg";
    ++counterVal;
    items.push("luigi");
+   console.log(items);
+   console.log(counterVal);
    verify();
 });
 
@@ -23,6 +39,8 @@ img2.addEventListener('click', () => {
     img2.src="./images/mario.jpg";
     ++counterVal;
     items.push("mario");
+    console.log(items);
+    console.log(counterVal);
     verify();
 });
 
@@ -31,6 +49,8 @@ img3.addEventListener('click', () => {
     img3.src="./images/luigi.jpg";
     ++counterVal;
     items.push("luigi");
+    console.log(items);
+    console.log(counterVal);
     verify();
 });
 
@@ -39,6 +59,8 @@ img4.addEventListener('click', () => {
     img4.src="./images/mario.jpg";
     ++counterVal;
     items.push("mario");
+    console.log(items);
+    console.log(counterVal);
     verify();
 });
 
@@ -49,10 +71,14 @@ btn.addEventListener('click', () => {
         left: 0,
         behavior: "smooth"
     })
+    counterVal = 0;
+    counterValWins = 0;
     img1.src="./images/cache.png";
     img2.src="./images/cache.png";
     img3.src="./images/cache.png";
     img4.src="./images/cache.png";
+    celebration.classList.remove("celebration-on");
+    celebration.classList.add("celebration-off");
 });
 
 function sleep(ms) {
@@ -66,35 +92,26 @@ function verify() {
                 img1.src="./images/cache.png";
                 img2.src="./images/cache.png";
                 img3.src="./images/cache.png";
-                img4.src="./images/cache.png"; });
+                img4.src="./images/cache.png";
+                console.log(items[0]);
+                console.log(items[1]); 
+                console.log("Pas de pièce");
+            });
             
         } else {
+            ++counterValWins;
+            audioPiece.play();
+            console.log(items[0]);
+            console.log(items[1]);
+            console.log("pièce");
         }
-        items.splice(0, items.length);
-        counterVal = 0;
-    } else {}
-
-    //ce if ne marche pas encore
-    if ( img1.src!="./images/cache.png" && img2.src!="./images/cache.png" ) {
-        console.log(img1.src!="./images/cache.png" && img2.src!="./images/cache.png"); //renvoie true...shit!!
-        console.log(img1.src!="http://127.0.0.1:5500/images/cache.png"); //true
-        console.log(img2.src!="http://127.0.0.1:5500/images/cache.png"); //false
-        console.log(img3.src!="http://127.0.0.1:5500/images/cache.png"); //false
-        console.log(img4.src!="http://127.0.0.1:5500/images/cache.png"); //false
-        console.log("Vous avez gagné!");
-        console.log(img1.src);
-        console.log(img2.src);
-        console.log(img3.src);
-        console.log(img4.src);
-    } else {
-        console.log("pas encore gagné");
+        if (counterValWins>=2) {
+            console.log("Vous avez gagné");
+            celebration.classList.remove("celebration-off");
+            celebration.classList.add("celebration-on");
+            audioWin.play();
+        }
+    items.splice(0, items.length);
+    counterVal = 0;
     }
 }
-
-const btnInit = document.querySelector('.btn');
-btn.addEventListener('click', () => {
-    img1.src="./images/cache.png";
-    img2.src="./images/cache.png";
-    img3.src="./images/cache.png";
-    img4.src="./images/cache.png";
-});

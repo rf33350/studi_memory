@@ -54,6 +54,7 @@ h1{
 .nono{
     text-align: center;
     padding-top: 100px;
+    font-size: 7vw;
 }
 
 .memory {
@@ -66,6 +67,13 @@ h1{
     grid-row-gap: 10px;
     
     }
+
+.celebration{
+    padding-top: 1000px;
+    text-align: center;
+    font-size: 7vw;
+    color: rgb(180, 30, 30);
+}
 
 .celebration-off{
     display: none;
